@@ -1,0 +1,254 @@
+import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
+import List from 'material-ui/List';
+import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import SwipeableDrawer from 'material-ui/SwipeableDrawer';
+import { CircularProgress } from 'material-ui/Progress';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import ProfileIcon from '@material-ui/icons/Person';
+import TeamIcon from '@material-ui/icons/SupervisorAccount';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import InfoIcon from '@material-ui/icons/InfoOutline';
+
+import LoginUser from './LoginUser';
+import CreateUser from './CreateUser';
+import About from './About';
+import Profile from './Profile';
+import Home from './Home';
+import Team from './Team';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.styles = {
+      width: 250,
+    };
+    this.state = { 
+      drawerOpen: false,
+    };
+  }
+
+  _logout = () => {
+    // remove token from local storage and reload page to reset apollo client
+    localStorage.removeItem('graphcoolToken');
+    window.location.reload();
+  }
+
+  _isLoggedIn = () => {
+    return !this.props.data.loading && this.props.data.loggedInUser && this.props.data.loggedInUser.id !== null;
+  };
+
+  _toggleDrawer = (open) => () => {
+    this.setState({
+      drawerOpen: open,
+    });
+  };
+
+  render () {
+    return (
+      <div>
+        {this._renderDrawer()}
+        {this._renderAppBar()}
+        {this._renderMainContent()}
+      </div>
+    );
+  }
+
+  _renderAppBar() {
+    return (
+      <div>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton color="inherit" onClick={this._toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
+            <img src={require('./ydin_logo_white.png')} alt='YDIN logo' style={{height: 32, marginLeft: 0, marginBottom: 0}} />
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
+
+  _renderDrawer() {
+    // Override iOS "Back" swipe and instead open the drawer
+    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+    if (this._isLoggedIn()) {
+      return(
+        <div>
+          <SwipeableDrawer
+            open={this.state.drawerOpen}
+            onClose={this._toggleDrawer(false)}
+            onOpen={this._toggleDrawer(true)}
+            disableBackdropTransition={!iOS} disableDiscovery={iOS}
+          >
+          <div>
+          <List>
+            <Link to='/'>
+              <ListItem button onClick={this._toggleDrawer(false)}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  Home
+                </ListItemText>
+              </ListItem>
+              </Link>
+            </List>
+            <Divider />
+            <List>
+            <Link to='/profile'>
+              <ListItem button onClick={this._toggleDrawer(false)}>
+                  <ListItemIcon>
+                    <ProfileIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                      Profile
+                    </ListItemText>
+                </ListItem>
+              </Link>
+            <Link to='/team'>
+              <ListItem button onClick={this._toggleDrawer(false)}>
+                <ListItemIcon>
+                  <TeamIcon />
+                </ListItemIcon>
+                <ListItemText primary="Team" />
+              </ListItem>
+              </Link>
+            </List>
+            <Divider />
+            <List>
+                <ListItem button onClick={this._toggleDrawer(false)}>
+                  <ListItemIcon>
+                    <AccountIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Account" />
+                </ListItem>              
+                <Link to='/about'>
+                  <ListItem button onClick={this._toggleDrawer(false)}>
+                    <ListItemIcon>
+                      <InfoIcon />
+                    </ListItemIcon>
+                    <ListItemText>
+                      About
+                    </ListItemText>
+                  </ListItem>
+                </Link>
+            </List>
+            <Divider />            
+            <List>              
+                <ListItem button onClick={this._logout} >
+                  <ListItemIcon>
+                    <AccountIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Log Out" />
+                </ListItem>                            
+            </List>
+          </div>
+        </SwipeableDrawer>
+      </div>
+      );
+    } else {
+      return(
+        <div>
+          <SwipeableDrawer
+            open={this.state.drawerOpen}
+            onClose={this._toggleDrawer(false)}
+            onOpen={this._toggleDrawer(true)}
+            disableBackdropTransition={!iOS} disableDiscovery={iOS}
+          >
+          <div>
+          <List>
+            <Link to='/'>
+              <ListItem button onClick={this._toggleDrawer(false)}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  Home
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link to='/about'>
+              <ListItem button onClick={this._toggleDrawer(false)}>              
+                <ListItemIcon>
+                  <InfoIcon />
+                </ListItemIcon>
+                <ListItemText>About</ListItemText>              
+              </ListItem>
+              </Link>
+            </List>
+            <Divider />            
+            <List>
+              <Link to='/login'>
+                <ListItem button onClick={this._toggleDrawer(false)} >
+                  <ListItemIcon>
+                    <AccountIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Log In
+                  </ListItemText>
+                </ListItem>
+              </Link>
+              <Link to='/signup'>
+                <ListItem button onClick={this._toggleDrawer(false)}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Sign Up  
+                  </ListItemText>
+                </ListItem>
+              </Link>
+            </List>
+          </div>
+        </SwipeableDrawer>
+      </div>
+      );
+    }
+  }
+
+  _renderMainContent() {
+    if (this.props.data.loading) {
+      return (
+        <div>
+          <CircularProgress size={50} />
+        </div>);
+    } else {
+      return (
+        <div style={{ paddingTop: 65, paddingBottom: 50, paddingLeft: 10, paddingRight: 10}}>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/login' component={LoginUser}/>
+            <Route path='/signup' component={CreateUser}/>
+            <Route path='/about' component={About}/>
+            <Route path='/profile' component={Profile}/>
+            <Route path='/team' component={Team}/>
+          </Switch>
+        </div>
+      );
+    }
+  }
+
+} // end of class
+
+const LOGGED_IN_USER_QUERY = gql`
+
+  query LoggedInUserQuery {
+    loggedInUser {
+      id
+    }
+  }
+`
+
+export default graphql(LOGGED_IN_USER_QUERY, { options: { fetchPolicy: 'network-only' } } ) (App);
