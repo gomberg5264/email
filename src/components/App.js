@@ -62,8 +62,8 @@ class App extends React.Component {
     });
   };
 
-  _pageTitle() {  
-    switch (this.props.userName) {
+  _pageTitle(userName) {  
+    switch (userName) {
       case 'login':
         return 'Log In';
       case 'signup':
@@ -75,7 +75,7 @@ class App extends React.Component {
         case 'team':
           return 'Team';
         default:
-          return this.props.userName;
+          return userName;
     }
   }
 
