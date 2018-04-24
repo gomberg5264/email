@@ -24,6 +24,7 @@ import LoginUser from './LoginUser';
 import CreateUser from './CreateUser';
 import About from './About';
 import Profile from './Profile';
+import Account from './Account';
 import Home from './Home';
 import Team from './Team';
 
@@ -93,47 +94,41 @@ class App extends React.Component {
             disableBackdropTransition={!iOS} disableDiscovery={iOS}
           >
           <div>
-          <List>
-            <Link to='/'>
-              <ListItem button onClick={this._toggleDrawer(false)}>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText>
-                  Home
-                </ListItemText>
-              </ListItem>
-              </Link>
-            </List>
-            <Divider />
             <List>
-            <Link to='/profile'>
-              <ListItem button onClick={this._toggleDrawer(false)}>
-                  <ListItemIcon>
-                    <ProfileIcon />
-                  </ListItemIcon>
-                  <ListItemText>
-                      Profile
-                    </ListItemText>
-                </ListItem>
-              </Link>
-            <Link to='/team'>
-              <ListItem button onClick={this._toggleDrawer(false)}>
-                <ListItemIcon>
-                  <TeamIcon />
-                </ListItemIcon>
-                <ListItemText primary="Team" />
-              </ListItem>
-              </Link>
-            </List>
-            <Divider />
-            <List>
+              <Link to='/'>
                 <ListItem button onClick={this._toggleDrawer(false)}>
                   <ListItemIcon>
-                    <AccountIcon />
+                    <HomeIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Account" />
-                </ListItem>              
+                  <ListItemText>
+                    Home
+                  </ListItemText>
+                </ListItem>
+              </Link>
+            </List>
+            <Divider />
+            <List>
+              <Link to='/account'>
+                <ListItem button onClick={this._toggleDrawer(false)}>
+                    <ListItemIcon>
+                      <ProfileIcon />
+                    </ListItemIcon>
+                    <ListItemText>
+                        Account
+                      </ListItemText>
+                  </ListItem>
+                </Link>
+              <Link to='/team'>
+                <ListItem button onClick={this._toggleDrawer(false)}>
+                  <ListItemIcon>
+                    <TeamIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Team" />
+                </ListItem>
+                </Link>
+              </List>
+              <Divider />
+              <List>
                 <Link to='/about'>
                   <ListItem button onClick={this._toggleDrawer(false)}>
                     <ListItemIcon>
@@ -232,8 +227,9 @@ class App extends React.Component {
             <Route path='/login' component={LoginUser}/>
             <Route path='/signup' component={CreateUser}/>
             <Route path='/about' component={About}/>
-            <Route path='/profile' component={Profile}/>
+            <Route path='/account' component={Account}/>
             <Route path='/team' component={Team}/>
+            <Route path='/:userName' component={Profile}/>
           </Switch>
         </div>
       );
@@ -251,4 +247,6 @@ const LOGGED_IN_USER_QUERY = gql`
   }
 `
 
-export default graphql(LOGGED_IN_USER_QUERY, { options: { fetchPolicy: 'network-only' } } ) (App);
+// export default graphql(LOGGED_IN_USER_QUERY, { options: { fetchPolicy: 'network-only' } } ) (App);
+
+export default graphql (LOGGED_IN_USER_QUERY, { options: (props) => { return { variables: { userName: props.userName } } } }) (App);

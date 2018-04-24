@@ -4,7 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import List from 'material-ui/List';
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import { ListItem, ListItemText } from 'material-ui/List';
 
 class Team extends React.Component {
 
@@ -20,7 +20,7 @@ class Team extends React.Component {
           this.props.data.allUsers.map((teamMember, index) => (
             <ListItem>
               <ListItemText>
-                ID: {teamMember.id}
+                ID: {teamMember.id} {teamMember.userName} {teamMember.email} 
               </ListItemText>
             </ListItem>
           ))

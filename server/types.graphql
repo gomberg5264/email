@@ -8,7 +8,7 @@ type User @model {
 
   firstName: String
   lastName: String
-  userName: String
+  userName: String @isUnique
   email: String @isUnique
   password: String
   profilePhoto: String
