@@ -37,8 +37,14 @@ class App extends React.Component {
     };
     this.state = { 
       drawerOpen: false,
+      pageTitle: '',
     };
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return { pageTitle: nextProps.userName };
+  }
+
 
   _logout = () => {
     // remove token from local storage and reload page to reset apollo client
@@ -92,7 +98,7 @@ class App extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" >
-              {this._pageTitle()}
+              {this._pageTitle(this.state.pageTitle)}
             </Typography>
           </Toolbar>
         </AppBar>
