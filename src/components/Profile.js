@@ -3,6 +3,8 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Avatar from 'material-ui/Avatar';
+
 class Profile extends React.Component {
 
   render () {
@@ -11,7 +13,12 @@ class Profile extends React.Component {
     } else if (!this.props.data.loading && this.props.data.User) {
       return (
         <div>
-            <img src={this.props.data.User.profilePhoto} alt='Profile' style={{height: 200}} />
+
+             <Avatar
+                alt='Profile'
+                src={this.props.data.User.profilePhoto}
+                style={{height: 200, width: 200}}
+            />
 
             <p>Profile username: {this.props.match.params.userName}</p>
 

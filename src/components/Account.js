@@ -3,6 +3,8 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Avatar from 'material-ui/Avatar';
+
 class Account extends React.Component {
 
   render () {
@@ -12,12 +14,18 @@ class Account extends React.Component {
       return (
         <div>
           <p>My Account</p>
+          
+          <Avatar
+                alt='Profile'
+                src={this.props.data.user.profilePhoto}
+                style={{height: 200, width: 200}}
+            />
+
           <p>ID: {this.props.data.user.id}</p>
           <p>Email: {this.props.data.user.email}</p>
           <p>First name: {this.props.data.user.firstName}</p>
           <p>Last name: {this.props.data.user.lastName}</p>
           <p>Username: {this.props.data.user.userName}</p>
-          <p>Protile photo url: {this.props.data.user.profilePhoto}</p>
           <p>Created at: {this.props.data.user.createdAt}</p>
           <p>Updated at: {this.props.data.user.updatedAt}</p>
         </div>
