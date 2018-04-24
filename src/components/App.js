@@ -12,6 +12,7 @@ import List from 'material-ui/List';
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import SwipeableDrawer from 'material-ui/SwipeableDrawer';
 import { CircularProgress } from 'material-ui/Progress';
+import Typography from 'material-ui/Typography';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
@@ -55,6 +56,23 @@ class App extends React.Component {
     });
   };
 
+  _pageTitle() {  
+    switch (this.props.userName) {
+      case 'login':
+        return 'Log In';
+      case 'signup':
+        return 'Sign Up';
+        case 'about':
+          return 'About';        
+        case 'account':
+          return 'My Account';
+        case 'team':
+          return 'Team';
+        default:
+          return this.props.userName;
+    }
+  }
+
   render () {
     return (
       <div>
@@ -73,7 +91,9 @@ class App extends React.Component {
             <IconButton color="inherit" onClick={this._toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
-            <img src={require('./ydin_logo_white.png')} alt='YDIN logo' style={{height: 32, marginLeft: 0, marginBottom: 0}} />
+            <Typography variant="title" color="inherit" >
+              {this._pageTitle()}
+            </Typography>
           </Toolbar>
         </AppBar>
       </div>
@@ -94,6 +114,7 @@ class App extends React.Component {
             disableBackdropTransition={!iOS} disableDiscovery={iOS}
           >
           <div>
+            <img src={require('./YDIN_logotype.png')} alt='YDIN logo' style={{height: 50}} />
             <List>
               <Link to='/'>
                 <ListItem button onClick={this._toggleDrawer(false)}>

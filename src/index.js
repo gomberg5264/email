@@ -33,13 +33,13 @@ const client = new ApolloClient({
 });
 
 const pathName = window.location.pathname;
-const username = (window.location.pathname.length < 2) ? null : pathName.substring(1, pathName.length);
+const userName = (window.location.pathname.length < 2) ? null : pathName.substring(1, pathName.length);
 
 ReactDOM.render((
   <ApolloProvider client={client}>
     <Router>
       <div>
-        <App username={username}/>
+        <App userName={userName}/>
       </div>
     </Router>
   </ApolloProvider>
