@@ -1,6 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -22,6 +25,26 @@ class CreateLogin extends React.Component {
     this.props.history.replace('/');
   }
 
+  _renderLogInButton(){
+    if (this.state.email && this.state.password) {
+      return (
+        <div>
+          <Button variant="raised" color="primary" onClick={this._authenticateUser}>
+            Log In
+          </Button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Button variant="raised" color="secondary" disabled >
+            Log In
+          </Button>
+        </div>
+      );
+    }
+  }
+
   render () {
     if (this.props.data.loading) {
       return (
@@ -39,28 +62,31 @@ class CreateLogin extends React.Component {
 
     return (
       <div>
-        <div>
-          <p>Login:</p>
-        </div>        
         <div className='w-100 pa4 flex justify-center'> 
           <div style={{ maxWidth: 400 }} className=''>
-            <input
-              className='w-100 pa3 mv2'
-              value={this.state.email}
-              placeholder='Email'
-              onChange={(e) => this.setState({email: e.target.value})}
-            />
-            <input
-              className='w-100 pa3 mv2'
-              type='password'
-              value={this.state.password}
-              placeholder='Password'
-              onChange={(e) => this.setState({password: e.target.value})}
-            />
+            <form noValidate autoComplete="off">
+              <TextField
+                autoFocus="true"
+                id="email"
+                label="Email"
+                // className={classes.textField}
+                value={this.state.email}
+                margin="normal"
+                onChange={(e) => this.setState({email: e.target.value})}
+              />
+              <TextField
+                id="password-input"
+                label="Password"
+                // className={classes.textField}
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                onChange={(e) => this.setState({password: e.target.value})}
+              />
+            </form>
 
-            {this.state.email && this.state.password &&
-            <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={this._authenticateUser}>Log in</button>
-            }
+            {this._renderLogInButton()}
+
           </div>
         </div>
       </div>
