@@ -5,9 +5,9 @@ export default class Home extends React.Component {
   render () {
     return (
       <div>
-        <img src={require('./YDIN.png')} alt='YDIN logo' style={{height: 120, width: 120}} />
-        <h1>YDIN</h1>
-        <p>Technology Consulting</p>
+        <img src={require('./YDIN_logotype.png')} alt='YDIN logo' style={{width: 250}} />
+        <h2>Technology Consulting</h2>
+        {/* <p>Technology Consulting</p> */}
       </div>
     )
   }
