@@ -4,6 +4,10 @@ import { Switch, Route, Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+
+import 'typeface-roboto';
+
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -28,6 +32,15 @@ import Profile from './Profile';
 import Account from './Account';
 import Home from './Home';
 import Team from './Team';
+
+const theme = createMuiTheme();
+
+const styles = {
+  container: {
+    textAlign: 'center',
+    paddingTop: 200
+  }
+};
 
 class App extends React.Component {
   constructor() {
@@ -81,7 +94,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style={styles.container}>
         {this._renderDrawer()}
         {this._renderAppBar()}
         {this._renderMainContent()}
@@ -91,18 +104,20 @@ class App extends React.Component {
 
   _renderAppBar() {
     return (
-      <div>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton color="inherit" onClick={this._toggleDrawer(true)}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" >
-              {this._pageTitle(this.state.pageTitle)}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div>
+          <AppBar position="fixed">
+            <Toolbar>
+              <IconButton color="inherit" onClick={this._toggleDrawer(true)}>
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" >
+                {this._pageTitle(this.state.pageTitle)}
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        </div>
+      </MuiThemeProvider>
     );
   }
 

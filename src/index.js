@@ -8,9 +8,13 @@ import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink} from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import 'tachyons';
+
+
+// import 'tachyons';
 
 import App from './components/App';
+
+
 
 const httpLink = createHttpLink({ uri: 'https://api.graph.cool/simple/v1/cjg9nh2n867jz0186txci6h4n' });
 
@@ -36,13 +40,13 @@ const pathName = window.location.pathname;
 const userName = (window.location.pathname.length < 2) ? null : pathName.substring(1, pathName.length);
 
 ReactDOM.render((
-  <ApolloProvider client={client}>
-    <Router>
-      <div>
-        <App userName={userName}/>
-      </div>
-    </Router>
-  </ApolloProvider>
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <App userName={userName}/>
+        </div>
+      </Router>
+    </ApolloProvider>
   ),
   document.getElementById('root')
 )
