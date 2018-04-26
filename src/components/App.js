@@ -38,7 +38,6 @@ const theme = createMuiTheme();
 const styles = {
   container: {
     textAlign: 'center',
-    paddingTop: 200
   }
 };
 
