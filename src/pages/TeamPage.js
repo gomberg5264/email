@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import List from 'material-ui/List';
 import { ListItem, ListItemText } from 'material-ui/List';
 
-class Team extends React.Component {
+class TeamPage extends React.Component {
 
   render () {
     if (this.props.data.loading) {
@@ -50,4 +50,4 @@ const ALL_USERS_QUERY = gql`
 
 export default compose(
   graphql(ALL_USERS_QUERY)
-)(Team)
+)(TeamPage)

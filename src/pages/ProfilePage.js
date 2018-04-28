@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 
 import Avatar from 'material-ui/Avatar';
 
-class Profile extends React.Component {
+class ProfilePage extends React.Component {
 
   render () {
     if (this.props.data.loading) {
@@ -56,4 +56,4 @@ const USER_QUERY = gql`
   }
 `
 
-export default graphql (USER_QUERY, { options: (props) => { return { variables: { userName: props.match.params.userName } } } } ) (Profile);
+export default graphql (USER_QUERY, { options: (props) => { return { variables: { userName: props.match.params.userName } } } } ) (ProfilePage);

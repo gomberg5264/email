@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Avatar from 'material-ui/Avatar';
 
-import { printDate, uploadPhotoAsync } from '../utilities/functions.js';
+import { printDate } from '../components/functions.js';
 
 const styles = {
   avatarContainer: {
@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-class Account extends React.Component {
+class AccountPage extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -129,4 +129,4 @@ const CURRENT_USER_QUERY = gql`
 
 export default compose(
   graphql(CURRENT_USER_QUERY)
-)(Account)
+)(AccountPage)

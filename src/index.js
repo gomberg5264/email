@@ -1,4 +1,4 @@
-import './style/index.css';
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -9,7 +9,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink} from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import App from './components/App';
+import App from './pages/App';
 
 const httpLink = createHttpLink({ uri: 'https://api.graph.cool/simple/v1/cjg9nh2n867jz0186txci6h4n' });
 
