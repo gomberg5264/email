@@ -6,7 +6,7 @@ export default class HomePage extends React.Component {
   render () {
     return (
       <div>
-        <img src={require('../images/YDIN.png')} alt='YDIN logo' style={{width: 50}} />
+        <img src={require('../assets/images/YDIN.png')} alt='YDIN logo' style={{width: 50}} />
         {/* <Typography variant="display2">
           YDIN
         </Typography> */}

@@ -1,13 +1,18 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import { Button, Typography } from 'material-ui';
 
-export default class LogOutPage extends React.Component {
+class LogOutPage extends React.Component {
+  constructor(props) {
+    super();
+  }
 
-
-  _logout(){
+  _logout = async () => {
     // remove token from local storage and reload page to reset apollo client
-    localStorage.removeItem('graphcoolToken');
-    window.location.reload();
+    await localStorage.removeItem('graphcoolToken');
+    // window.location.reload();
+    this.props.history.replace('/');
   }
 
   render () {
@@ -25,3 +30,6 @@ export default class LogOutPage extends React.Component {
   }
 
 } // end of class
+
+
+export default (withRouter(LogOutPage));

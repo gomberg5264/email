@@ -19,7 +19,6 @@ import AccountIcon from '@material-ui/icons/AccountCircle';
 import InfoIcon from '@material-ui/icons/InfoOutline';
 
 import LogInPage from './LogInPage';
-import LogOutPage from './LogOutPage';
 import SignUpPage from './SignUpPage';
 import AboutPage from './AboutPage';
 import ProfilePage from './ProfilePage';
@@ -53,9 +52,17 @@ class App extends React.Component {
   }
 
   _isLoggedIn = () => {
+    // TODO: not maybe enough... doesn't work properly after logout now?
     return !this.props.data.loading && this.props.data.loggedInUser && this.props.data.loggedInUser.id !== null;
   };
 
+
+  _logout = () => {
+    // remove token from local storage and reload page to reset apollo client
+    localStorage.removeItem('graphcoolToken');
+    window.location.reload();
+  }
+  
   _toggleDrawer = (open) => () => {
     this.setState({
       drawerOpen: open,
@@ -71,8 +78,6 @@ class App extends React.Component {
         return 'Sign Up';
       case '/login':
         return 'Log In';
-      case '/logout':
-        return 'Log Out';
       case '/about':
         return 'About';        
       case '/account':
@@ -115,7 +120,7 @@ class App extends React.Component {
               disableBackdropTransition={!iOS} disableDiscovery={iOS}
           >
               <div>
-                  <img src={require('../images/YDIN_logotype.png')} alt='YDIN logo' style={{height: 50}} />
+                  <img src={require('../assets/images/YDIN_logotype.png')} alt='YDIN logo' style={{height: 50}} />
                   <List>
                     <Link to={'/'} style={{ textDecoration: 'none' }}>
                       <ListItem button onClick={this._toggleDrawer(false)}>
@@ -143,12 +148,10 @@ class App extends React.Component {
                       </React.Fragment>                     
                       : ''}
                     { this._isLoggedIn() ? 
-                      <Link to={'/logout'} style={{ textDecoration: 'none' }}>
-                        <ListItem button onClick={this._toggleDrawer(false)}>
-                            <ListItemIcon><AccountIcon /></ListItemIcon>
-                            <ListItemText>Log Out</ListItemText>
-                        </ListItem>            
-                      </ Link>
+                      <ListItem button onClick={this._logout}>
+                          <ListItemIcon><AccountIcon /></ListItemIcon>
+                          <ListItemText>Log Out</ListItemText>
+                      </ListItem>                                  
                       :
                       <React.Fragment>
                         <Link to={'/signup'} style={{ textDecoration: 'none' }}>
@@ -193,7 +196,6 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={HomePage}/>
             <Route path='/login' component={LogInPage}/>
-            <Route path='/logout' component={LogOutPage}/>
             <Route path='/signup' component={SignUpPage}/>
             <Route path='/about' component={AboutPage}/>
             <Route path='/account' component={AccountPage}/>
