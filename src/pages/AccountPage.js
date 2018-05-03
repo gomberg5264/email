@@ -3,7 +3,7 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { TextField, Button, Avatar, IconButton } from 'material-ui';
+import { Avatar, IconButton } from 'material-ui';
 
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -50,24 +50,8 @@ class AccountPage extends React.Component {
     };
   }
 
-  _renderSaveButton(){
-    if ( false ) { // check if any changes done
-      return (
-        <div>
-          <Button variant="raised" color="primary" onClick={this._authenticateUser}>
-            Save Changes
-          </Button>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Button variant="raised" color="secondary" disabled >
-            Save Changes
-          </Button>
-        </div>
-      );
-    }
+  _editField(){
+
   }
 
   render () {
@@ -85,8 +69,8 @@ class AccountPage extends React.Component {
           </div>
 
           <div style={styles.avatarContainer}>          
-            <List style={{width: 350}}>              
-              <ListItem>
+            <List style={{width: 400}}>              
+              <ListItem onClick={this._editField()}>
                 <ListItemAvatar>
                   <Avatar>
                     <PersonIcon />
@@ -158,49 +142,6 @@ class AccountPage extends React.Component {
               </ListItem>                            
             </List>
           </div>
-          {/* <div>          
-            <form noValidate autoComplete="off">
-              <TextField
-                autoFocus={true}
-                id="firstName"
-                label="First name"
-                value={this.state.firstName}
-                margin="normal"
-                onChange={(e) => this.setState({firstName: e.target.value})}
-                style = {{width: 300}} 
-              />
-              <br />
-              <TextField
-                id="lastName"
-                label="Last name"
-                value={this.state.lastName}
-                margin="normal"
-                onChange={(e) => this.setState({lastName: e.target.value})}
-                style = {{width: 300}} 
-              />
-              <br />
-              <TextField
-                id="email"
-                label="Email"
-                value={this.state.email}
-                margin="normal"
-                onChange={(e) => this.setState({email: e.target.value})}
-                style = {{width: 300}} 
-              />
-              <br />
-              <TextField
-                id="userName"
-                label="Username"                
-                value={this.state.userName}
-                margin="normal"
-                onChange={(e) => this.setState({userName: e.target.value})}
-                style = {{width: 300}} 
-              />
-            </form>
-          </div>
-          {this._renderSaveButton()}
-          <p>Joined: {printDate(this.props.data.user.createdAt)}</p> */}
-
         </div>
       );
     }
