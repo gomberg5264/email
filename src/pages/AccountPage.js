@@ -5,17 +5,17 @@ import gql from 'graphql-tag';
 
 import { Avatar, IconButton } from 'material-ui';
 
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
-
-import PersonIcon from '@material-ui/icons/Person';
-import UsernameIcon from '@material-ui/icons/PersonOutline';
-import EmailIcon from '@material-ui/icons/Email';
+// import FolderIcon from '@material-ui/icons/Folder';
+// import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+// import PersonIcon from '@material-ui/icons/Person';
+// import UsernameIcon from '@material-ui/icons/PersonOutline';
+// import EmailIcon from '@material-ui/icons/Email';
 
 // Privacy icons:
-import OnlyMeIcon from '@material-ui/icons/Lock';
-import TeamIcon from '@material-ui/icons/SupervisorAccount';
-import PublicIcon from '@material-ui/icons/Public';
+// import OnlyMeIcon from '@material-ui/icons/Lock';
+// import TeamIcon from '@material-ui/icons/SupervisorAccount';
+// import PublicIcon from '@material-ui/icons/Public';
 
 import List, {
   ListItem,
@@ -42,12 +42,12 @@ const styles = {
 class AccountPage extends React.Component {
   constructor(props) {
     super();
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      userName: '',
-    };
+    // this.state = {
+    //   firstName: '',
+    //   lastName: '',
+    //   email: '',
+    //   userName: '',
+    // };
   }
 
   _editField(){
@@ -71,67 +71,47 @@ class AccountPage extends React.Component {
           <div style={styles.avatarContainer}>          
             <List style={{width: 400}}>              
               <ListItem onClick={this._editField()}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar>
                 <ListItemText
                   primary='First name'
                   secondary={this.props.data.user.firstName ? this.props.data.user.firstName : 'Missing...'}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="Delete">
-                    <PublicIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                      <IconButton aria-label="Edit">
+                        <EditIcon />
+                      </IconButton>
+                </ListItemSecondaryAction>                
               </ListItem>                
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar>
+              <ListItem>                
                 <ListItemText
                   primary='Last name'
                   secondary={this.props.data.user.lastName ? this.props.data.user.lastName : 'Missing...'}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="Delete">
-                    <PublicIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                      <IconButton aria-label="Edit">
+                        <EditIcon />
+                      </IconButton>
+                </ListItemSecondaryAction>                
               </ListItem>                
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <UsernameIcon />
-                  </Avatar>
-                </ListItemAvatar>
+              <ListItem>                
                 <ListItemText
                   primary='Username'
                   secondary={this.props.data.user.userName ? this.props.data.user.userName : 'Missing...'}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="Delete">
-                    <TeamIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                      <IconButton aria-label="Edit">
+                        <EditIcon />
+                      </IconButton>
+                </ListItemSecondaryAction>                
               </ListItem>                
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <EmailIcon />
-                  </Avatar>
-                </ListItemAvatar>
+              <ListItem>                
                 <ListItemText
                   primary='Email'
                   secondary={this.props.data.user.email ? this.props.data.user.email : 'Missing...'}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="Delete">
-                    <OnlyMeIcon />
-                  </IconButton>
+                      <IconButton aria-label="Edit">
+                        <EditIcon />
+                      </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>                            
               <ListItem>
